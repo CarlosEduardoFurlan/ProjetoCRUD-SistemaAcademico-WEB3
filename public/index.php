@@ -1,5 +1,9 @@
 <?php
+<<<<<<< HEAD
 require_once 'config/database.php';
+=======
+require_once '../config/database.php';
+>>>>>>> 3f152da (Implementacao de relatorio)
 
 // Total de alunos
 $stmt = $pdo->query("SELECT COUNT(*) as total FROM alunos");
@@ -41,7 +45,11 @@ $ultimos = $stmt->fetchAll();
                 <p>Painel de Estatisticas</p>
             </div>
             <nav>
+<<<<<<< HEAD
                 <a href="admin.html" class="btn btn-primary">Gerenciar Alunos</a>
+=======
+                <a href="admin.php" class="btn btn-primary">Gerenciar Alunos</a>
+>>>>>>> 3f152da (Implementacao de relatorio)
             </nav>
         </header>
 
@@ -102,7 +110,11 @@ $ultimos = $stmt->fetchAll();
                             <td><?php echo $aluno['matricula']; ?></td>
                             <td><?php echo $aluno['nome']; ?></td>
                             <td><?php echo $aluno['curso']; ?></td>
+<<<<<<< HEAD
                             <td><?php echo $aluno['created_at']; ?></td>
+=======
+                            <td><?php echo date('d/m/Y H:i:s', strtotime($aluno['created_at'])); ?></td>
+>>>>>>> 3f152da (Implementacao de relatorio)
                         </tr>
                         <?php endforeach; ?>
                     </tbody>

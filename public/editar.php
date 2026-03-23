@@ -1,6 +1,10 @@
 <?php
+<<<<<<< HEAD
 require_once 'config/database.php';
 
+=======
+require_once '../config/database.php';
+>>>>>>> 3f152da (Implementacao de relatorio)
 if(!isset($_GET['id'])) {
     header('Location: admin.php');
     exit;
@@ -30,7 +34,11 @@ if (!$aluno) {
     <div class="container">
         <header>
             <h1>Editar Aluno</h1>
+<<<<<<< HEAD
             <a href="index.html" class="btn btn-back">Voltar</a>
+=======
+            <a href="index.php" class="btn btn-back">Voltar</a>
+>>>>>>> 3f152da (Implementacao de relatorio)
         </header>
 
         <main>

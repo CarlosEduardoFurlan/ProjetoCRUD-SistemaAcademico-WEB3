@@ -1,6 +1,10 @@
 <?php
+<<<<<<< HEAD
 require_once 'config/database.php';
 
+=======
+require_once '../config/database.php';
+>>>>>>> 3f152da (Implementacao de relatorio)
 if (isset($_GET['id'])) {
     
     $id = (int) $_GET['id'];

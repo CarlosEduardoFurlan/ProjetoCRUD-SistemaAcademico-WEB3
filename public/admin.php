@@ -1,5 +1,9 @@
 <?php
+<<<<<<< HEAD
 require_once 'config/database.php';
+=======
+require_once '../config/database.php';
+>>>>>>> 3f152da (Implementacao de relatorio)
 
 $stmt = $pdo->query("SELECT * FROM alunos ORDER BY id DESC");
 $alunos = $stmt->fetchAll();
@@ -22,13 +26,24 @@ $alunos = $stmt->fetchAll();
                 <p>Cadastro, edicao e exclusao</p>
             </div>
             <nav>
+<<<<<<< HEAD
                 <a href="index.html" class="btn btn-back">Voltar ao Painel</a>
+=======
+                <a href="index.php" class="btn btn-back">Voltar ao Painel</a>
+>>>>>>> 3f152da (Implementacao de relatorio)
             </nav>
         </header>
 
         <main>
             <div class="actions">
+<<<<<<< HEAD
                 <a href="cadastro.html" class="btn btn-primary">Novo Aluno</a>
+=======
+                <a href="cadastro.php" class="btn btn-primary">Novo Aluno</a>
+                <form method="post" action="gerador-pdf.php" style="display: inline;">
+                    <button type="submit" class="btn btn-secondary">Baixar Relatório</button>
+                </form>
+>>>>>>> 3f152da (Implementacao de relatorio)
             </div>
 
             <table>
@@ -63,6 +78,10 @@ $alunos = $stmt->fetchAll();
                         </td>
                     </tr>
                     <?php endforeach; ?>
+<<<<<<< HEAD
+=======
+                </tbody>
+>>>>>>> 3f152da (Implementacao de relatorio)
             </table>
         </main>
 
