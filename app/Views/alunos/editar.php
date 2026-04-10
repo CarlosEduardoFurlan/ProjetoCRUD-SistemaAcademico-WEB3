@@ -1,41 +1,14 @@
-<?php
-require_once 'config/database.php';
+<?php $titulo = 'Editar Aluno - Sistema Academico'; ?>
+<?php require BASE_PATH . '/app/Views/layouts/header.php'; ?>
 
-if(!isset($_GET['id'])) {
-    header('Location: admin.php');
-    exit;
-}
-
-$id = $_GET['id'];
-
-$stmt = $pdo->prepare("SELECT * FROM alunos WHERE id = ?");
-$stmt->execute([$id]);
-$aluno = $stmt->fetch(PDO::FETCH_ASSOC);
-
-if (!$aluno) {
-    header('Location: admin.php');
-    exit;
-}
-?>
-
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Aluno - Sistema Academico</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="container">
         <header>
             <h1>Editar Aluno</h1>
-            <a href="index.php" class="btn btn-back">Voltar</a>
+            <a href="index.php?route=alunos" class="btn btn-back">Voltar</a>
         </header>
 
         <main>
-            <form action="processa_edicao.php" method="POST" class="form">
-                
+            <form action="index.php?route=alunos/atualizar" method="POST" class="form">
+
                 <input type="hidden" name="id" value="<?php echo $aluno['id']; ?>">
 
                 <div class="form-group">
@@ -86,10 +59,9 @@ if (!$aluno) {
 
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary">Salvar Alteracoes</button>
-                    <a href="index.html" class="btn btn-cancel">Cancelar</a>
+                    <a href="index.php?route=alunos" class="btn btn-cancel">Cancelar</a>
                 </div>
             </form>
         </main>
-    </div>
-</body>
-</html>
+
+<?php require BASE_PATH . '/app/Views/layouts/footer.php'; ?>

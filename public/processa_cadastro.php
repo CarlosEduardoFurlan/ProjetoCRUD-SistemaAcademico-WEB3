@@ -1,9 +1,5 @@
 <?php 
-<<<<<<< HEAD
 require_once 'config/database.php';
-=======
-require_once '../config/database.php';
->>>>>>> 3f152da (Implementacao de relatorio)
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $matricula = $_POST['matricula'];

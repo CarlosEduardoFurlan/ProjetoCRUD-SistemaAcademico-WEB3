@@ -1,36 +1,21 @@
-<?php
-require_once 'config/database.php';
+<?php $titulo = 'Sistema Academico - Gerenciar Alunos'; ?>
+<?php require BASE_PATH . '/app/Views/layouts/header.php'; ?>
 
-$stmt = $pdo->query("SELECT * FROM alunos ORDER BY id DESC");
-$alunos = $stmt->fetchAll();
-?>
-
-
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema Academico - Gerenciar Alunos</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="container">
         <header>
             <div>
                 <h1>Gerenciar Alunos</h1>
                 <p>Cadastro, edicao e exclusao</p>
             </div>
             <nav>
-                <a href="index.php" class="btn btn-back">Voltar ao Painel</a>
+                <a href="index.php?route=home" class="btn btn-back">Voltar ao Painel</a>
             </nav>
         </header>
 
         <main>
             <div class="actions">
-                <a href="cadastro.php" class="btn btn-primary">Novo Aluno</a>
-                <form method="post" action="gerador-pdf.php" style="display: inline;">
-                    <button type="submit" class="btn btn-secondary">Baixar Relatório</button>
+                <a href="index.php?route=alunos/cadastro" class="btn btn-primary">Novo Aluno</a>
+                <form method="post" action="index.php?route=alunos/pdf" style="display: inline;">
+                    <button type="submit" class="btn btn-secondary">Baixar Relatorio</button>
                 </form>
             </div>
 
@@ -53,25 +38,19 @@ $alunos = $stmt->fetchAll();
                         <td><?php echo $aluno['email']; ?></td>
                         <td><?php echo $aluno['curso']; ?></td>
                         <td>
-                            <?php
-                            $classe = strtolower($aluno['situacao']);
-                            ?>
+                            <?php $classe = strtolower($aluno['situacao']); ?>
                             <span class="status <?php echo $classe; ?>">
                                 <?php echo $aluno['situacao']; ?>
                             </span>
                         </td>
                         <td class="actions-cell">
-                            <a href="editar.php?id=<?php echo $aluno['id']; ?>" class="btn btn-small btn-edit">Editar</a>
-                            <a href="excluir.php?id=<?php echo $aluno['id']; ?>" class="btn btn-small btn-delete" onclick="return confirm('Deseja excluir este aluno?')">Excluir</a>
+                            <a href="index.php?route=alunos/editar&id=<?php echo $aluno['id']; ?>" class="btn btn-small btn-edit">Editar</a>
+                            <a href="index.php?route=alunos/excluir&id=<?php echo $aluno['id']; ?>" class="btn btn-small btn-delete" onclick="return confirm('Deseja excluir este aluno?')">Excluir</a>
                         </td>
                     </tr>
                     <?php endforeach; ?>
+                </tbody>
             </table>
         </main>
 
-        <footer>
-            <p>Sistema Academico - Projeto CRUD</p>
-        </footer>
-    </div>
-</body>
-</html>
+<?php require BASE_PATH . '/app/Views/layouts/footer.php'; ?>

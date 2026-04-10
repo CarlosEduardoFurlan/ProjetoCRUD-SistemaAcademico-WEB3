@@ -1,130 +1,60 @@
 <?php
-<<<<<<< HEAD
-require_once 'config/database.php';
-=======
-require_once '../config/database.php';
->>>>>>> 3f152da (Implementacao de relatorio)
 
-// Total de alunos
-$stmt = $pdo->query("SELECT COUNT(*) as total FROM alunos");
-$total = $stmt->fetch()['total'];
+define('BASE_PATH', dirname(__DIR__));
 
-// Total de ativos
-$stmt = $pdo->query("SELECT COUNT(*) as total FROM alunos WHERE situacao = 'Ativo'");
-$ativos = $stmt->fetch()['total'];
+require_once BASE_PATH . '/config/database.php';
+require_once BASE_PATH . '/app/Models/Aluno.php';
+require_once BASE_PATH . '/app/Controllers/HomeController.php';
+require_once BASE_PATH . '/app/Controllers/AlunoController.php';
 
-// Total de trancados
-$stmt = $pdo->query("SELECT COUNT(*) as total FROM alunos WHERE situacao = 'Trancado'");
-$trancados = $stmt->fetch()['total'];
+$alunoModel = new Aluno($pdo);
 
-// Total de formados
-$stmt = $pdo->query("SELECT COUNT(*) as total FROM alunos WHERE situacao = 'Formado'");
-$formados = $stmt->fetch()['total'];
+$route = $_GET['route'] ?? 'home';
 
-// Alunos por curso
-$stmt = $pdo->query("SELECT curso, COUNT(*) as quantidade FROM alunos GROUP BY curso ORDER BY quantidade DESC");
-$porCurso = $stmt->fetchAll();
+switch ($route) {
+    case 'home':
+        $controller = new HomeController($alunoModel);
+        $controller->index();
+        break;
 
-// Ultimos 5 cadastros
-$stmt = $pdo->query("SELECT * FROM alunos ORDER BY created_at DESC LIMIT 5");
-$ultimos = $stmt->fetchAll();
-?>
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema Academico - Painel</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="container">
-        <header>
-            <div>
-                <h1>Sistema Academico</h1>
-                <p>Painel de Estatisticas</p>
-            </div>
-            <nav>
-<<<<<<< HEAD
-                <a href="admin.html" class="btn btn-primary">Gerenciar Alunos</a>
-=======
-                <a href="admin.php" class="btn btn-primary">Gerenciar Alunos</a>
->>>>>>> 3f152da (Implementacao de relatorio)
-            </nav>
-        </header>
+    case 'alunos':
+        $controller = new AlunoController($alunoModel);
+        $controller->index();
+        break;
 
-        <main>
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <h3>Total de Alunos</h3>
-                    <p class="stat-number"><?php echo $total; ?></p>
-                </div>
-                <div class="stat-card">
-                    <h3>Ativos</h3>
-                    <p class="stat-number green"><?php echo $ativos; ?></p>
-                </div>
-                <div class="stat-card">
-                    <h3>Trancados</h3>
-                    <p class="stat-number yellow"><?php echo $trancados; ?></p>
-                </div>
-                <div class="stat-card">
-                    <h3>Formados</h3>
-                    <p class="stat-number blue"><?php echo $formados; ?></p>
-                </div>
-            </div>
+    case 'alunos/cadastro':
+        $controller = new AlunoController($alunoModel);
+        $controller->cadastro();
+        break;
 
-            <div class="section">
-                <h2>Alunos por Curso</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Curso</th>
-                            <th>Quantidade</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($porCurso as $curso): ?>
-                        <tr>
-                            <td><?php echo $curso['curso']; ?></td>
-                            <td><?php echo $curso['quantidade']; ?></td>
-                        </tr>
-                        <?php endforeach; ?> 
-                    </tbody>
-                </table>
-            </div>
+    case 'alunos/salvar':
+        $controller = new AlunoController($alunoModel);
+        $controller->salvar();
+        break;
 
-            <div class="section">
-                <h2>Ultimos Cadastros</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Matricula</th>
-                            <th>Nome</th>
-                            <th>Curso</th>
-                            <th>Data Cadastro</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($ultimos as $aluno): ?>
-                        <tr>
-                            <td><?php echo $aluno['matricula']; ?></td>
-                            <td><?php echo $aluno['nome']; ?></td>
-                            <td><?php echo $aluno['curso']; ?></td>
-<<<<<<< HEAD
-                            <td><?php echo $aluno['created_at']; ?></td>
-=======
-                            <td><?php echo date('d/m/Y H:i:s', strtotime($aluno['created_at'])); ?></td>
->>>>>>> 3f152da (Implementacao de relatorio)
-                        </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
-        </main>
+    case 'alunos/editar':
+        $controller = new AlunoController($alunoModel);
+        $controller->editar();
+        break;
 
-        <footer>
-            <p>Sistema Academico - Projeto CRUD</p>
-        </footer>
-    </div>
-</body>
-</html>
+    case 'alunos/atualizar':
+        $controller = new AlunoController($alunoModel);
+        $controller->atualizar();
+        break;
+
+    case 'alunos/excluir':
+        $controller = new AlunoController($alunoModel);
+        $controller->excluir();
+        break;
+
+    case 'alunos/pdf':
+        $controller = new AlunoController($alunoModel);
+        $controller->pdf();
+        break;
+
+    default:
+        $controller = new HomeController($alunoModel);
+        $controller->index();
+        break;
+}
+
